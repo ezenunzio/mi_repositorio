@@ -7,12 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <p> Mis familiares son:</p>
-
-    {% for familiar in familia %}
-
-    <p>{{familiar.nombre}}, {{familiar.apellido}}. tiene {{familiar.años}}, y nacio el {{familiar.cumpleanios}}</p> 
-
-    {%endfor%}
+   
+    <p>Familiares: </p>
+   {% for familiar in familia %}
+    <p>{{familiar.apellido}}, {{familiar.nombre}} tiene {{familiar.años}}, y nacio el {{familiar.cumpleanios}}</p>
+   {% endfor %}
 </body>
 </html>
