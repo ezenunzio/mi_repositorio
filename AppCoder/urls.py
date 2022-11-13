@@ -19,7 +19,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path("template1/", mostrar_familia),
     
 ]
