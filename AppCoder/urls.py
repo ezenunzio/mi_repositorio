@@ -19,6 +19,5 @@ from .views import *
 
 
 urlpatterns = [
-    path("template1/", mostrar_familia),
-    
+    path("template1/", mostrar_familia), 
 ]
