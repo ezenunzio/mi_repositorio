@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import *
+from .views import mostrar_familia, mostrar_index, mostrar_referencias, mostrar_repaso
 
 
 urlpatterns = [
-    path("template1/", mostrar_familia), 
+    path('admin/', admin.site.urls),
+    path("familiares/", mostrar_familia, name='familiares'), 
+    path("", mostrar_index), 
+    path("mostrar_referencias/", mostrar_referencias, name='ref'), 
+    path("mostrar_repaso/", mostrar_repaso, name='repaso'), 
 ]

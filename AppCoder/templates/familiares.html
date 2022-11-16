@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+    <p>Familiares: </p>
+    {% for familiar in familia %}
+        <p>{{familiar.apellido}}, {{familiar.nombre}} tiene {{familiar.edad}}, y nacio el {{familiar.cumpleanios}}</p>
+    {% endfor %}
+
+{% endblock  %}
+   
+
