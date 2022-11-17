@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import mostrar_familia, mostrar_index, mostrar_referencias, mostrar_repaso
+from AppCoder import views
 
 
 urlpatterns = [
@@ -24,4 +25,15 @@ urlpatterns = [
     path("", mostrar_index), 
     path("mostrar_referencias/", mostrar_referencias, name='ref'), 
     path("mostrar_repaso/", mostrar_repaso, name='repaso'), 
+]
+
+urlpatterns = [
+   
+    path('', views.inicio, name="Inicio"), #esta era nuestra primer view
+    path('cursos', views.cursos, name="Cursos"),
+    path('profesores', views.profesores, name="Profesores"),
+    path('estudiantes', views.estudiantes, name="Estudiantes"),
+    path('entregables', views.entregables, name="Entregables"),
+    path('cursoFormulario', views.cursoFormulario, name="CursoFormulario"),
+    path('profesorFormulario', views.profesorFormulario, name="ProfesorFormulario"),
 ]
