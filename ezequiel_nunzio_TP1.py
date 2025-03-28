@@ -10,6 +10,10 @@ ENDPOINT_CATEGORIES = "crime-categories"
 MONTHS = ["2024-01", "2024-02", "2024-03"]
 AREA_POLY = "52.268,0.543:52.794,0.238:52.130,0.478"
 
+BRONZE_PATH = "data/bronze/crimes"
+SILVER_PATH = "data/silver/crimes"
+GOLD_PATH = "data/gold/crimes"
+
 def get_data(base_url, endpoint, params=None, headers=None):
     """
     Realiza una solicitud GET a una API para obtener datos en formato JSON.
@@ -52,9 +56,10 @@ def fetch_crime_data(base_url, endpoint, months, area_poly):
     return pd.DataFrame(all_crimes) if all_crimes else pd.DataFrame()
 
 
-
-raw__crime_categories = fetch_crime_categories(BASE_URL, ENDPOINT_CATEGORIES, MONTHS)
 raw__crimes_street = fetch_crime_data(BASE_URL, ENDPOINT_CRIMES_STREET, MONTHS, AREA_POLY)
+raw__crime_categories = fetch_crime_categories(BASE_URL, ENDPOINT_CATEGORIES, MONTHS)
+
+write_deltalake(BRONZE_PATH, raw__crimes_street)
 
 
 # 🔹 Procesar datos para la capa Silver
@@ -68,6 +73,10 @@ def process_crime_data(df):
     Retorna:
     - DataFrame limpio y optimizado para la capa Silver.
     """
+    
+    dt = DeltaTable(BRONZE_PATH)
+    df = dt.to_pandas()  # Convertir a Pandas para manipular
+
 
     # Eliminar registros sin ID único (inconsistentes)
     df = df.dropna(subset=["persistent_id"])
@@ -131,8 +140,9 @@ def process_crime_data(df):
     return df
 
 processed_crimes_df = process_crime_data(raw__crimes_street)
+write_deltalake(SILVER_PATH, processed_crimes_df, mode="overwrite")
 
-processed_crimes_df.columns
+processed_crimes_df
 
 
 
